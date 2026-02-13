@@ -3,25 +3,112 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #131313;
+  --surface: #1b1b1b;
+  --surface-2: #222222;
+  --surface-3: #2a2a2a;
+  --border: #303030;
+  --border-hover: #404040;
+  --foreground: #ffffff;
+  --text-secondary: #9b9b9b;
+  --text-tertiary: #5e5e5e;
+  --accent: #10b981;
+  --accent-soft: rgba(16, 185, 129, 0.12);
+  --accent-hover: rgba(16, 185, 129, 0.08);
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.12);
+  --warning: #f59e0b;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Uniswap-style card */
+.uni-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 16px;
+}
+
+.uni-card-lg {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.uni-card:hover, .uni-card-lg:hover {
+  border-color: var(--border-hover);
+}
+
+/* Inner row (like token selector rows in Uniswap) */
+.uni-row {
+  background: var(--surface-2);
+  border-radius: 16px;
+  padding: 16px;
+  transition: background 0.15s;
+}
+
+.uni-row:hover {
+  background: var(--surface-3);
+}
+
+/* Accent text */
+.text-accent {
+  color: var(--accent);
+}
+
+/* Scrollbar - minimal */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+/* JSON / code blocks */
+.json-block {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-x: auto;
+  color: #9b9b9b;
+}
+
+/* Subtle background gradient (like Uniswap has on its page) */
+.bg-gradient-subtle {
+  background: radial-gradient(
+    100% 100% at 50% 0%,
+    rgba(16, 185, 129, 0.06) 0%,
+    rgba(16, 185, 129, 0) 100%
+  );
+}
+
+/* Input focus */
+input:focus, textarea:focus {
+  outline: none;
+}
+
+/* Disable number spinner */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
