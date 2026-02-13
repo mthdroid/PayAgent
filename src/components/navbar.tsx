@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export function Navbar() {
@@ -20,17 +21,14 @@ export function Navbar() {
       <div className="w-full max-w-[1280px] mx-auto px-4 flex items-center justify-between">
         {/* Left: Logo + Nav */}
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2.5 mr-2">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <rect width="28" height="28" rx="8" fill="#10b981" />
-              <path
-                d="M8 14l4 4 8-8"
-                stroke="white"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <Link href="/" className="flex items-center gap-2 mr-2">
+            <Image
+              src="/loggggq-removebg-preview.png"
+              alt="PayAgent"
+              width={32}
+              height={32}
+              className="w-8 h-8"
+            />
             <span className="text-[18px] font-semibold text-white">
               PayAgent
             </span>

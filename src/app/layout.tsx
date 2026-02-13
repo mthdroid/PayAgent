@@ -19,7 +19,8 @@ export const metadata: Metadata = {
   description:
     "Multi-agent AI system implementing the full AP2 protocol for autonomous digital commerce with x402 settlement on SKALE.",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/loggggq-removebg-preview.png",
+    apple: "/loggggq-removebg-preview.png",
   },
 };
 
