@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { FlowStep } from "@/components/flow-step";
 import { PaymentReceipt } from "@/ap2/types";
+import { getReceipts } from "@/lib/client-store";
 
 export default function FlowPage() {
   const [receipts, setReceipts] = useState<PaymentReceipt[]>([]);
@@ -11,22 +12,13 @@ export default function FlowPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchReceipts();
-  }, []);
-
-  const fetchReceipts = async () => {
-    try {
-      const res = await fetch("/api/receipts");
-      const data = await res.json();
-      setReceipts(data.receipts || []);
-      if (data.receipts?.length > 0) {
-        setSelectedReceipt(data.receipts[0]);
-      }
-    } catch {
-      // No receipts yet
+    const stored = getReceipts();
+    setReceipts(stored);
+    if (stored.length > 0) {
+      setSelectedReceipt(stored[0]);
     }
     setLoading(false);
-  };
+  }, []);
 
   const getStepData = (receipt: PaymentReceipt, stepName: string) => {
     return receipt.auditTrail.find((e) => e.step === stepName)?.data;

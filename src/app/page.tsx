@@ -9,6 +9,7 @@ import {
   PaymentReceipt,
   AuditEntry,
 } from "@/ap2/types";
+import { saveReceipt } from "@/lib/client-store";
 
 interface Message {
   role: "user" | "agent" | "system";
@@ -146,6 +147,9 @@ export default function Home() {
           step: "complete",
         }));
 
+        // Persist receipt to localStorage for Flow & Receipts pages
+        saveReceipt(data.receipt);
+
         addMessage({
           role: "agent",
           content: `Payment confirmed.\n\nTx: ${data.receipt.transactionHash}\nAmount: $${data.receipt.amount.value.toFixed(2)} ${data.receipt.amount.currency}\nMerchant: ${data.receipt.merchantConfirmationId}\n\nView details in Flow and Receipts tabs.`,
@@ -157,6 +161,11 @@ export default function Home() {
           receipt: data.receipt,
           step: "failed",
         }));
+
+        // Persist failed receipt too
+        if (data.receipt) {
+          saveReceipt(data.receipt);
+        }
 
         const reason =
           data.receipt?.auditTrail?.slice(-1)[0]?.data?.error ||

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { PaymentReceipt } from "@/ap2/types";
 import { ReceiptCard } from "@/components/receipt-card";
+import { getReceipts } from "@/lib/client-store";
 
 export default function ReceiptsPage() {
   const [receipts, setReceipts] = useState<PaymentReceipt[]>([]);
@@ -10,21 +11,14 @@ export default function ReceiptsPage() {
   const [filter, setFilter] = useState<"all" | "success" | "failure">("all");
 
   useEffect(() => {
-    fetchReceipts();
-    const interval = setInterval(fetchReceipts, 5000);
+    const loadReceipts = () => {
+      setReceipts(getReceipts());
+      setLoading(false);
+    };
+    loadReceipts();
+    const interval = setInterval(loadReceipts, 2000);
     return () => clearInterval(interval);
   }, []);
-
-  const fetchReceipts = async () => {
-    try {
-      const res = await fetch("/api/receipts");
-      const data = await res.json();
-      setReceipts(data.receipts || []);
-    } catch {
-      // Ignore
-    }
-    setLoading(false);
-  };
 
   const filtered = receipts.filter((r) => {
     if (filter === "all") return true;
