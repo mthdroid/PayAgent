@@ -12,11 +12,13 @@ export async function POST(req: NextRequest) {
       cart,
       walletAddress,
       simulateFailure,
+      priorAuditTrail,
     }: {
       transactionId: string;
       cart: CartMandate;
       walletAddress: string;
       simulateFailure?: boolean;
+      priorAuditTrail?: AuditEntry[];
     } = body;
 
     if (!cart || !walletAddress) {
@@ -26,7 +28,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const auditTrail: AuditEntry[] = [];
+    // Start with prior audit trail (intent_created + cart_signed from orchestrate step)
+    const auditTrail: AuditEntry[] = [...(priorAuditTrail || [])];
 
     // Simulate failure mode if requested (for demo)
     if (simulateFailure) {

@@ -135,6 +135,7 @@ export default function Home() {
           cart: flowState.cart,
           walletAddress,
           simulateFailure,
+          priorAuditTrail: flowState.auditTrail,
         }),
       });
 
