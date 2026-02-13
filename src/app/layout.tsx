@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: "PayAgent — AI Commerce with AP2 Authorization",
   description:
     "Multi-agent AI system implementing the full AP2 protocol for autonomous digital commerce with x402 settlement on SKALE.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
